@@ -1,0 +1,92 @@
+[
+  {
+    "title": "Panceta",
+    "description": "Este es un producto prueba",
+    "price": 999,
+    "thumbnail": "Sin imagen",
+    "code": "1",
+    "stock": 25,
+    "idProduct": 0
+  },
+  {
+    "title": "Salamin",
+    "description": "Este es un producto prueba",
+    "price": 200,
+    "thumbnail": "Sin imagen",
+    "code": "2",
+    "stock": 25,
+    "idProduct": 1
+  },
+  {
+    "title": "Primavera",
+    "description": "Este es un producto prueba",
+    "price": 200,
+    "thumbnail": "Sin imagen",
+    "code": "3",
+    "stock": 25,
+    "idProduct": 2
+  },
+  {
+    "title": "Fiambrin",
+    "description": "Este es un producto prueba",
+    "price": 200,
+    "thumbnail": "Sin imagen",
+    "code": "4",
+    "stock": 25,
+    "idProduct": 3
+  },
+  {
+    "title": "Paleta",
+    "description": "Este es un producto prueba",
+    "price": 200,
+    "thumbnail": "Sin imagen",
+    "code": "5",
+    "stock": 25,
+    "idProduct": 4
+  },
+  {
+    "title": "Jamon crudo",
+    "description": "Este es un producto prueba",
+    "price": 200,
+    "thumbnail": "Sin imagen",
+    "code": "6",
+    "stock": 25,
+    "idProduct": 5
+  },
+  {
+    "title": "Jamon cocido",
+    "description": "Este es un producto prueba",
+    "price": 200,
+    "thumbnail": "Sin imagen",
+    "code": "7",
+    "stock": 25,
+    "idProduct": 6
+  },
+  {
+    "title": "Queso barra",
+    "description": "Este es un producto prueba",
+    "price": 200,
+    "thumbnail": "Sin imagen",
+    "code": "8",
+    "stock": 25,
+    "idProduct": 7
+  },
+  {
+    "title": "Mortadela",
+    "description": "Este es un producto prueba",
+    "price": 200,
+    "thumbnail": "Sin imagen",
+    "code": "9",
+    "stock": 25,
+    "idProduct": 8
+  },
+  {
+    "title": "Salame",
+    "description": "Este es un producto prueba",
+    "price": 200,
+    "thumbnail": "Sin imagen",
+    "code": "10",
+    "stock": 25,
+    "idProduct": 9
+  }
+]

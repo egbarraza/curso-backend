@@ -30,6 +30,6 @@ app.get("/products/:pid", async (req, res) => {
   }
 });
 
-app.listen(8082, () => {
+app.listen(8080, () => {
   console.log("listening in 8082");
 });

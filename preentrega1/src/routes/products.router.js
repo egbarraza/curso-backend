@@ -7,23 +7,25 @@ productsRouter.use(json());
 
 productsRouter.get("/", async (req, res) => {
   const { limit } = req.query;
-  const product = await productManager.getProducts();
-  if (!limit) {
-    res.send(product);
-  } else {
-    res.send(product.slice(0, limit));
+  const { stat, result } = await productManager.getProducts();
+  console.log(stat);
+  if (stat === 400) {
+    res.status(stat).send(result);
+    return "";
   }
-  req.body;
+
+  if (!limit) {
+    res.status(stat).send(result);
+  } else {
+    res.status(stat).send(result.slice(0, limit));
+  }
 });
 
 productsRouter.get("/:pid", async (req, res) => {
   const pid = parseInt(req.params.pid);
-  const product = await productManager.getProductById(pid);
-  if (product) {
-    res.status(200).send(product);
-  } else {
-    res.status(404).send("Not found");
-  }
+  const { stat, result } = await productManager.getProductById(pid);
+
+  res.status(stat).send(result);
 });
 
 productsRouter.post("/", async (req, res) => {
@@ -49,11 +51,11 @@ productsRouter.post("/", async (req, res) => {
     thumbnails,
   };
 
-  const result = await productManager.addProduct(newProduct);
-  if (result === "") {
-    res.status(200).send(newProduct);
+  const { stat, result } = await productManager.addProduct(newProduct);
+  if (stat === 200) {
+    res.status(stat).send(newProduct);
   } else {
-    res.status(404).send(newProduct);
+    res.status(stat).send(result);
   }
 });
 
@@ -96,15 +98,15 @@ productsRouter.put("/:pid", async (req, res) => {
     newProduct.thumbnails = thumbnails;
   }
 
-  await productManager.updateProduct(pid, newProduct);
+  const { stat, result } = await productManager.updateProduct(pid, newProduct);
 
-  res.status(200).send(await productManager.getProductById(pid));
+  res.status(stat).send(result);
 });
 
 productsRouter.delete("/:pid", async (req, res) => {
   const pid = parseInt(req.params.pid);
-  await productManager.deleteProduct(pid);
-  res.status(200).send("Eliminado exitosamente");
+  const { stat, result } = await productManager.deleteProduct(pid);
+  res.status(stat).send(result);
 });
 
 export default productsRouter;

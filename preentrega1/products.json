@@ -1,1 +1,24 @@
-[{"title":"Prueba","description":"Producto prueba","code":"abc123","price":123,"status":true,"stock":1,"category":"toys","thumbnails":[],"idProduct":1}]
+[
+  {
+    "title": "Prueba",
+    "description": "Producto prueba cambiado",
+    "code": "abc123",
+    "price": 123,
+    "status": true,
+    "stock": 1,
+    "category": "toys",
+    "thumbnails": [],
+    "idProduct": 1
+  },
+  {
+    "title": "Prueba",
+    "description": "Producto prueba",
+    "code": "abc124",
+    "price": 123,
+    "status": true,
+    "stock": 1,
+    "category": "toys",
+    "thumbnails": [],
+    "idProduct": 2
+  }
+]

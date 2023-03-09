@@ -6,87 +6,124 @@ class ProductManager {
   }
 
   async addProduct(product) {
-    const products = await this.getProducts();
+    try {
+      const { stat, result } = await this.getProducts();
+      const products = result;
+      if (
+        products.find((el) => {
+          return el.code === product.code;
+        })
+      ) {
+        return { stat: 400, result: `Code ${product.code} not valid` };
+      } else {
+        let maxId = 1;
+        if (products.length) {
+          maxId = products[products.length - 1].idProduct + 1;
+        }
+        const newProduct = {
+          ...product,
+          idProduct: maxId,
+        };
 
-    if (
-      products.find((el) => {
-        return el.code === product.code;
-      })
-    ) {
-      return `Code ${product.code} not valid`;
-    } else {
-      let maxId = 1;
-      if (products.length) {
-        maxId = products[products.length - 1].idProduct + 1;
+        products.push(newProduct);
+        await fs.promises.writeFile(this.path, JSON.stringify(products));
+        return { stat: 200, result: "" };
       }
-      const newProduct = {
-        ...product,
-        idProduct: maxId,
-      };
-
-      products.push(newProduct);
-      await fs.promises.writeFile(this.path, JSON.stringify(products));
-      return "";
+    } catch (error) {
+      return { stat: 400, result: "Error" };
     }
   }
 
   async getProducts() {
-    if (fs.existsSync(this.path)) {
-      return JSON.parse(await fs.promises.readFile(this.path, "utf-8"));
-    } else {
-      return [];
+    try {
+      if (fs.existsSync(this.path)) {
+        return {
+          stat: 200,
+          result: JSON.parse(await fs.promises.readFile(this.path, "utf-8")),
+        };
+      } else {
+        return { stat: 200, result: [] };
+      }
+    } catch (error) {
+      return { stat: 400, result: "Error trying to retrieve the products" };
     }
   }
 
   async getProductById(idProduct) {
-    const products = await this.getProducts();
+    const { stat, result } = await this.getProducts();
+    const products = result;
+    if (stat === 400) {
+      return { stat: 400, result: products };
+    }
+
     const product = products.find((el) => {
       return el.idProduct === idProduct;
     });
     if (!product) {
-      return [];
+      return { stat: 400, result: "Product not found" };
     } else {
-      return product;
+      return { stat: 200, result: product };
     }
   }
 
   async updateProduct(idProduct, newProduct) {
-    const products = await this.getProducts();
-    let position = -1;
-    for (let i = 0; i < products.length; i++) {
-      if (products[i].idProduct === idProduct) {
-        position = i;
+    try {
+      const { stat, result } = await this.getProducts();
+      const products = result;
+      if (stat === 400) {
+        return { stat: 400, result: products };
       }
-    }
 
-    if (position === -1) {
-      return "Not found";
-    } else {
-      products[position] = {
-        ...products[position],
-        ...newProduct,
-        idProduct: products[position].idProduct,
-      };
+      let position = -1;
+      for (let i = 0; i < products.length; i++) {
+        if (products[i].idProduct === idProduct) {
+          position = i;
+        }
+      }
 
-      await fs.promises.writeFile(this.path, JSON.stringify(products));
+      if (position === -1) {
+        return { stat: 400, result: "Product not found" };
+      } else {
+        products[position] = {
+          ...products[position],
+          ...newProduct,
+          idProduct: products[position].idProduct,
+        };
+
+        await fs.promises.writeFile(this.path, JSON.stringify(products));
+
+        return { stat: 200, result: products[position] };
+      }
+    } catch (error) {
+      return { stat: 400, result: "Error updating product" };
     }
   }
 
   async deleteProduct(idProduct) {
-    const products = await this.getProducts();
-    let position = -1;
-    for (let i = 0; i < products.length; i++) {
-      if (products[i].idProduct === idProduct) {
-        position = i;
+    try {
+      const { stat, result } = await this.getProducts();
+      const products = result;
+      if (stat === 400) {
+        return { stat: 400, result: products };
       }
-    }
 
-    if (position === -1) {
-      return "Not found";
-    } else {
-      products.splice(position, 1);
+      let position = -1;
+      for (let i = 0; i < products.length; i++) {
+        if (products[i].idProduct === idProduct) {
+          position = i;
+        }
+      }
 
-      await fs.promises.writeFile(this.path, JSON.stringify(products));
+      if (position === -1) {
+        return { stat: 400, result: "Product not found" };
+      } else {
+        products.splice(position, 1);
+
+        await fs.promises.writeFile(this.path, JSON.stringify(products));
+        return { stat: 200, result: "Product deleted correctly" };
+      }
+    } catch (error) {
+      return { stat: 400, result: "Error deleting product" };
     }
   }
 }

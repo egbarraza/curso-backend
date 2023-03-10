@@ -1,0 +1,23 @@
+[
+  {
+    "idCart": 0,
+    "products": [
+      { "id": 1, "quantity": 1 },
+      { "id": 2, "quantity": 1 }
+    ]
+  },
+  {
+    "idCart": 1,
+    "products": [
+      { "id": 1, "quantity": 1 },
+      { "id": 2, "quantity": 2 }
+    ]
+  },
+  {
+    "idCart": 2,
+    "products": [
+      { "id": 1, "quantity": 1 },
+      { "id": 2, "quantity": 1 }
+    ]
+  }
+]

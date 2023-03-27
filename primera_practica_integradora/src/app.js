@@ -16,7 +16,7 @@ const chatManager = new ChatManager();
 
 mongoose
   .connect(
-    "mongodb+srv://admin:admin@coderbase.ssj68go.mongodb.net/ecommerce?retryWrites=true&w=majority"
+    "cnnstring"
   )
   .then((conn) => {
     console.log("Connected to DB!");

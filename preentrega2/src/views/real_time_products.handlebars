@@ -1,0 +1,31 @@
+Lista de productos:
+<table class="people_list" id="product-table">
+  <tr>
+    <th style="width: 10%;"> title</th>
+    <th style="width: 10%;"> description</th>
+    <th style="width: 10%;"> code</th>
+    <th style="width: 10%;"> price</th>
+    <th style="width: 10%;"> status</th>
+    <th style="width: 10%;"> stock</th>
+    <th style="width: 10%;"> category</th>
+    <th style="width: 10%;"> thumbnails</th>
+    <th style="width: 10%;"> Id</th>
+  </tr>
+
+  {{#each products}}
+    <tr>
+      <td style="text-align: center;">{{this.title}}</td>
+      <td style="text-align: center;">{{this.description}}</td>
+      <td style="text-align: center;">{{this.code}}</td>
+      <td style="text-align: center;">{{this.price}}</td>
+      <td style="text-align: center;">{{this.status}}</td>
+      <td style="text-align: center;">{{this.stock}}</td>
+      <td style="text-align: center;">{{this.category}}</td>
+      <td style="text-align: center;">{{this.thumbnails}}</td>
+      <td style="text-align: center;">{{this.idProduct}}</td>
+    </tr>
+  {{/each}}
+
+</table>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>

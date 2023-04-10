@@ -70,7 +70,7 @@ viewRouter.get("/carts/:cid", async (req, res) => {
   const cid = req.params.cid;
   try {
     const { stat, result } = await cartManager.getCartById(cid);
-    console.log(result);
+
     res.render("cart", { cart: result });
   } catch (error) {
     res.render("error");

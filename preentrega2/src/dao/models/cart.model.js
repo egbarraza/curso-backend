@@ -15,5 +15,10 @@ const cartSchema = new mongoose.Schema({
   },
 });
 
+// Agregado de middleware
+/*cartSchema.pre("findById", function () {
+  this.populate("products.idProduct");
+});*/
+
 const cartModel = mongoose.model("carts", cartSchema);
 export default cartModel;

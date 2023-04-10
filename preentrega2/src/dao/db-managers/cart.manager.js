@@ -30,6 +30,8 @@ class CartManager {
   async getCartById(idCart) {
     try {
       const result = await cartModel.findById(idCart).lean();
+      console.log("result", result);
+      console.log("idProduct", result.idProduct);
       return { stat: 200, result: result };
     } catch (error) {
       return { stat: 400, result: [] };

@@ -34,8 +34,9 @@ class ProductManager {
     category
   ) {
     try {
-      var myMatch = {};
-      var orden = false;
+      let myMatch = {};
+      let orden = false;
+      let filtro = false;
 
       if (!sort) {
         orden = false;
@@ -46,35 +47,54 @@ class ProductManager {
       }
       if (title) {
         myMatch["title"] = { $eq: title };
+        filtro = true;
       }
       if (description) {
         myMatch["description"] = { $eq: title };
       }
       if (code) {
         myMatch["code"] = { $eq: code };
+        filtro = true;
       }
       if (price) {
         myMatch["code"] = { $eq: price };
+        filtro = true;
       }
       if (status) {
         myMatch["status"] = { $eq: status };
+        filtro = true;
       }
       if (stock) {
         myMatch["stock"] = { $eq: stock };
+        filtro = true;
       }
       if (category) {
         myMatch["category"] = { $eq: category };
+        filtro = true;
       }
 
-      const paginate = await productModel.paginate(
-        { ...myMatch },
-        {
-          limit: limit ?? 10,
-          lean: true,
-          page: page ?? 1,
-          sort: orden,
-        }
-      );
+      let paginate;
+      if (!filtro) {
+        paginate = await productModel.paginate(
+          {},
+          {
+            limit: limit ?? 10,
+            lean: true,
+            page: page ?? 1,
+            sort: orden,
+          }
+        );
+      } else {
+        paginate = await productModel.paginate(
+          { ...myMatch },
+          {
+            limit: limit ?? 10,
+            lean: true,
+            page: page ?? 1,
+            sort: orden,
+          }
+        );
+      }
 
       const result = {
         status: "success",

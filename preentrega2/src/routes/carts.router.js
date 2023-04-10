@@ -25,6 +25,7 @@ cartsRouter.post("/", async (req, res) => {
 
 cartsRouter.post("/addProduct", async (req, res) => {
   const { idProduct } = req.body;
+
   const newProduct = [{ idProduct: idProduct }];
   const { stat, result } = await cartManager.createCart(newProduct);
 

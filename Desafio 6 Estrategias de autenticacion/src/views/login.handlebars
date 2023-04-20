@@ -1,0 +1,48 @@
+<p>{{result.message}}</p>
+
+<p>{{user}}</p>
+<p>{{user.first_name}}</p>
+
+{{#if user}}
+  <span>Datos de usuario</span>
+
+  <ul>
+    <li><label>{{this.user.first_name}}</label></li>
+    <li><label>{{user.last_name}}</label></li>
+    <li><label>{{user.age}}</label></li>
+    <li><label>{{user.user}}</label></li>
+  </ul>
+{{else}}
+  <h2>Login</h2>
+
+  <form action="api/sessions/login" method="get">
+    <label for="user">Ingrese el usuario:</label>
+    <input type="email" name="user" id="user" />
+
+    <label for="password">Ingrese la contraseña:</label>
+    <input type="password" name="password" id="password" />
+
+    <button type="submit">Ingresar</button>
+  </form>
+
+  <h2>Registro</h2>
+
+  <form action="api/sessions/register" method="post">
+    <label for="first_name">Ingrese su nombre:</label>
+    <input type="text" name="first_name" id="first_name" />
+
+    <label for="last_name">Ingrese su apellido:</label>
+    <input type="text" name="last_name" id="last_name" />
+
+    <label for="age">Ingrese su edad:</label>
+    <input type="text" name="age" id="age" />
+
+    <label for="user">Ingrese el usuario:</label>
+    <input type="email" name="user" id="user" />
+
+    <label for="password">Ingrese la contraseña:</label>
+    <input type="password" name="password" id="password" />
+
+    <button type="submit">Registrarse</button>
+  </form>
+{{/if}}

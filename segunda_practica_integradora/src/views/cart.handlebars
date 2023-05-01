@@ -1,0 +1,17 @@
+Lista de productos del carrito:
+
+<table class="people_list">
+  <tr>
+    <th style="width: 10%;"> Id</th>
+    <th style="width: 10%;"> quantity</th>
+  </tr>
+
+  {{#each cart.products}}
+    <tr>
+      <td style="text-align: center;">{{this.idProduct}}</td>
+      <td style="text-align: center;">{{this.quantity}}</td>
+    </tr>
+  {{/each}}
+
+</table>
+<script src="/js/index.js"></script>

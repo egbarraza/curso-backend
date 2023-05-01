@@ -1,0 +1,27 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <nav>
+      <span><a href="/">Iniciar sesion</a></span>
+      <span><a href="/register">Registro</a></span>
+      <span><a href="/real-time-products">Productos</a></span>
+      <span><a href="/profile">Perfil</a></span>
+      <button id="logoutBtn">Cerrar sesion</button>
+    </nav>
+
+    {{{body}}}
+
+    <script>
+      const logoutBtn = document.getElementById("logoutBtn");
+      logoutBtn.addEventListener("click",()=>{ console.log("hey")
+      fetch("/api/sessions/logout",{ method:"post"
+      }).then((response)=>response.json()) .then(()=>{ window.location.href="/"
+      }); });
+    </script>
+  </body>
+</html>

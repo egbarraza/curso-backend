@@ -1,0 +1,113 @@
+import express from "express";
+import { ProductManager, CartManager } from "../dao/index.js";
+import ChatManager from "../dao/db-managers/chat.manager.js";
+import userModel from "../dao/models/user.model.js";
+
+const viewRouter = express.Router();
+const productManager = new ProductManager("./products.json");
+const cartManager = new CartManager();
+const chatManager = new ChatManager();
+
+viewRouter.get("/", async (req, res) => {
+  try {
+    if (!req.session.user) {
+      res.render("login", {});
+    } else {
+      console.log("views");
+      console.log(typeof req.session.user);
+      console.log({ user: req.session.user });
+      res.render("login", { user: req.session.user });
+    }
+  } catch (error) {
+    res.render("error");
+  }
+});
+
+viewRouter.get("/register", async (req, res) => {
+  try {
+    res.render("register", {});
+  } catch (error) {
+    res.render("error");
+  }
+});
+
+viewRouter.get("/profile", async (req, res) => {
+  try {
+    const user = await userModel.findById(req.user._id).lean();
+    res.render("profile", { user });
+  } catch (error) {
+    res.render("error");
+  }
+});
+
+viewRouter.get("/homeProducts", async (req, res) => {
+  const {
+    limit,
+    page,
+    sort,
+    stock,
+    title,
+    description,
+    code,
+    price,
+    status,
+    category,
+  } = req.query;
+  const { stat, result } = await productManager.getFilteredProducts(
+    limit,
+    page,
+    sort,
+    stock,
+    title,
+    description,
+    code,
+    price,
+    status,
+    category
+  );
+  if (stat === 400) {
+    res.render("error");
+  } else {
+    res.render("homeProducts", { products: result });
+  }
+});
+
+viewRouter.get("/real-time-products", async (req, res) => {
+  const { stat, result } = await productManager.getProducts();
+  if (stat === 400) {
+    res.render("error");
+  } else {
+    res.render("real_time_products", { products: result });
+  }
+});
+
+viewRouter.get("/chat", async (req, res) => {
+  try {
+    const { stat, result } = await chatManager.getMessages();
+    res.render("chat", { messages: result });
+  } catch (error) {
+    res.render("error");
+  }
+});
+
+viewRouter.get("/products", async (req, res) => {
+  try {
+    const { stat, result } = await productManager.getProducts();
+    res.render("products", { products: result });
+  } catch (error) {
+    res.render("error");
+  }
+});
+
+viewRouter.get("/carts/:cid", async (req, res) => {
+  const cid = req.params.cid;
+  try {
+    const { stat, result } = await cartManager.getCartById(cid);
+
+    res.render("cart", { cart: result });
+  } catch (error) {
+    res.render("error");
+  }
+});
+
+export default viewRouter;
